@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.schedule.project.dao.MemberDAO">
+	<insert id ="insert" parameterType="MemberVO">
+		INSERT INTO schedule_member values(schedule_member_SEQ.nextval
+		,#{m_id},#{m_pwd},#{m_name}, #{m_phone}	,#{m_email},#{m_nick}
+		,#{m_jender},#{m_birth},SYSDATE )				
+	</insert>
+	<select id="selectByIdx" parameterType="int" resultType="MemberVO">
+		select * from schedule_member where idx=#{idx }
+	</select>
+	<update id="update" parameterType="MemberVO">
+		update schedule_member set 
+		m_name= #{m_name} ,m_phone = #{m_phone}
+		,m_email = #{m_email} ,m_nick = #{m_nick}
+		,m_jender = #{m_jender} ,m_birth = #{m_birth}
+		where idx=#{idx }
+	</update>
+	<delete id="delete" parameterType="int" >
+		delete from schedule_member where idx=#{idx }
+	</delete>	
+	<select id="selectList" resultType="MemberVO">
+		select * from schedule_member order by idx desc
+	</select>	
+	<select id="getCount" resultType="int">
+		select count(*) from schedule_member 
+	</select>
+	<select id="selectByUserid" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from schedule_member where m_id=#{m_id }
+	</select>
+	<select id="selectByEmail" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from schedule_member where m_email=#{m_email }
+	</select>
+</mapper> 
