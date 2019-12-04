@@ -135,6 +135,7 @@ public class MemberService {
 //		vo = memberDao.selectByUserName(map);
 		return vo;
 	}
+	
 	public MemberVO pwSearch(MemberVO memberVO) {
 		logger.info(memberVO);
 		MemberVO vo = null;
@@ -173,7 +174,5 @@ public class MemberService {
 	        };	 			
 		}
 		return vo;
-	}
-	
-	
+	}		
 }

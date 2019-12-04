@@ -87,7 +87,6 @@ var editEvent = function (event, element, view) {
                 alert('수정되었습니다.')
             }
         });
-
     });
 
     // 삭제버튼
@@ -99,9 +98,9 @@ var editEvent = function (event, element, view) {
         //삭제시
         $.ajax({
             type: "get",
-            url: "",
+            url: "cal/delete",
             data: {
-                //...
+                
             },
             success: function (response) {
                 alert('삭제되었습니다.');

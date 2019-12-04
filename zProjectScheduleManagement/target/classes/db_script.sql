@@ -48,3 +48,31 @@ INCREMENT BY 1;
 
 DELETE schedule_member;
 SELECT * FROM schedule_member;
+
+CREATE TABLE schedule(
+    "_id"              NUMBER             PRIMARY KEY, 
+    title              VARCHAR2(50)    NOT NULL, 
+    description        VARCHAR2(50)    NULL, 
+    "start"            VARCHAR2(50)    NOT NULL, 
+    "end"              VARCHAR2(50)    NULL, 
+    "type"             VARCHAR2(50)    NULL, 
+    username           VARCHAR2(50)    NOT NULL, 
+    backgroundColor    VARCHAR2(50)    NULL, 
+    textColor          VARCHAR2(50)    NULL, 
+    allDay             NUMBER             NULL
+);
+
+CREATE SEQUENCE schedule_SEQ
+START WITH 1
+INCREMENT BY 1;
+SELECT * FROM schedule;
+DELETE FROM schedule;
+
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-07T09:30', '2019-05-07T15:00', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-01T12:30', '2019-05-01T15:30', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-12', '2019-05-12', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-15', '2019-05-15', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+
+UPDATE schedule SET username='1234';
+select * from schedule where username='1234';
+COMMIT;

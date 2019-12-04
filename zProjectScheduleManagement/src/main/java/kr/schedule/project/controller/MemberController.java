@@ -1,11 +1,14 @@
 package kr.schedule.project.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.schedule.project.service.CalendarService;
 import kr.schedule.project.service.MemberService;
+import kr.schedule.project.vo.CalendarVO;
 import kr.schedule.project.vo.MemberVO;
 
 @Controller
 public class MemberController {	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	CalendarService calendarService;	
+
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	@RequestMapping(value="/m")
 	public String login(HttpServletRequest request, Model model) {//쿠키를 읽자
 		Cookie[] cookies = request.getCookies();
@@ -85,19 +95,43 @@ public class MemberController {
 		int idcheck = (memberService.selectByEmail(map)==null?0:1);
 		return idcheck;
 	}
-
 	@RequestMapping(value="/cal" )
 	public String calendar(Model model ) {
-		return "schedule/calendar"; 
-	}	
-
-	@RequestMapping(value="/cal2" )
-	public String calendar2(Model model ) {
 		return "schedule/calendar_2"; 
 	}	
-
-	@RequestMapping(value="/cal3" )
-	public String calendar3(Model model ) {
-		return "schedule/calendar_3"; 
+	//일단 Json파일을 읽는것부터 해보자
+	@RequestMapping(value="/readJson")
+	public String readJson(HttpServletRequest request, Model model) {
+		String filepath = request.getRealPath("resources/json/data.json");
+		List<CalendarVO> list = calendarService.readJson(filepath);
+		model.addAttribute("list",list);
+		return "view";
 	}	
+	// 데이터를 json파일로 저장하는 방법
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value="/saveJson")
+	public String saveJson(@ModelAttribute CalendarVO vo ,HttpServletRequest request, Model model) {	
+		calendarService.saveJSON(request.getRealPath("resources/json/data.json"),"1234");
+		return "schedule/calendar_2";
+	}	
+	// 이걸로 사용할거야 json파일 삭제해도 되나?
+	// responsebody로 디비에 있는 데이터 json파일로 파싱할 수 있도록 함
+	@RequestMapping(value="/saveJson2")
+	@ResponseBody
+	public List<CalendarVO> responseBodyTest(@ModelAttribute CalendarVO vo, HttpServletRequest request){
+		//List<CalendarVO> result = calendarService.selectByUserid(vo.getUsername());
+		List<CalendarVO> result = calendarService.selectByUserid("1234");	   
+		logger.info("saveJson2 : "+result.toString());
+	    return result;
+	}		
+	@RequestMapping(value = "/cal/update", method = RequestMethod.POST)
+	public @ResponseBody void update( @ModelAttribute CalendarVO vo, HttpServletRequest request){
+		calendarService.update(vo);
+	}
+	@RequestMapping(value = "/cal/delete", method = RequestMethod.POST)
+	public @ResponseBody void delete( @ModelAttribute CalendarVO vo, HttpServletRequest request){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userid", vo.getUsername());
+		calendarService.delete(map);
+	}
 }

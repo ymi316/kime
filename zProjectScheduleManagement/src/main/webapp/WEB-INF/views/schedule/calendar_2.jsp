@@ -3,28 +3,21 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%><!DOCTYPE html>
 <html lang="ko">
-
 <head> 
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FullCalendar Example</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='${pageContext.request.contextPath }/resources/vendor/css/bootstrap-datetimepicker.min.css' />
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/cal_main.css">
-
 </head>
-
 <body>
     <div class="container">
-
         <!-- 일자 클릭시 메뉴오픈 -->
         <div id="contextMenu" class="dropdown clearfix">
             <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
@@ -37,13 +30,10 @@
                 <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
             </ul>
         </div>
-
         <div id="wrapper">
             <div id="loading"></div>
             <div id="calendar"></div>
         </div>
-
-
         <!-- 일정 추가 MODAL -->
         <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
             <div class="modal-dialog" role="document">
@@ -54,14 +44,12 @@
                         <h4 class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-allDay">하루종일</label>
                                 <input class='allDayNewEvent' id="edit-allDay" type="checkbox">
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">일정명</label>
@@ -81,18 +69,20 @@
                                 <input class="inputModal" type="text" name="edit-end" id="edit-end" />
                             </div>
                         </div>
-                        <!-- 
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-type">구분</label>
+                                <input class="inputModal" type="text" name="edit-type" id="edit-type" />                        
+                                <!-- 
                                 <select class="inputModal" type="text" name="edit-type" id="edit-type">
                                     <option value="카테고리1">카테고리1</option>
                                     <option value="카테고리2">카테고리2</option>
                                     <option value="카테고리3">카테고리3</option>
                                     <option value="카테고리4">카테고리4</option>
-                                </select>
+                                </select> 
+                                -->
                             </div>
-                        </div> --> 
+                        </div> 
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-color">색상</label>
@@ -112,8 +102,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-desc">설명</label>
-                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-                                    id="edit-desc"></textarea>
+                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc" id="edit-desc"></textarea>
                             </div>
                         </div>
                     </div>
@@ -129,9 +118,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    </div>
-    <!-- /.container -->
-
+    </div><!-- /.container -->
     <script src="${pageContext.request.contextPath }/resources/vendor/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/js/moment.min.js"></script>
@@ -144,5 +131,4 @@
     <script src="${pageContext.request.contextPath }/resources/js/editEvent.js"></script>
     <script src="${pageContext.request.contextPath }/resources/js/etcSetting.js"></script>
 </body>
-
 </html>
