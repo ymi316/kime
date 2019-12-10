@@ -75,6 +75,13 @@ public class MemberController {
 		}
 	}
 
+	@RequestMapping(value = "/m/logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().removeAttribute("vo");
+		return "redirect:/";
+	}
+
+
 	@RequestMapping(value = "/m/join")
 	public String join() {
 		return "member/join";
@@ -96,7 +103,17 @@ public class MemberController {
 	public @ResponseBody int AjaxView(@RequestParam("m_email") String m_email) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("m_email", m_email);
-		int idcheck = (memberService.selectByEmail(map) == null ? 0 : 1);
+		int check = (memberService.selectByEmail(map) == null ? 0 : 1);
+		return check;
+	}
+	
+
+	// 이메일 중복 체크
+	@RequestMapping(value = "/m/checkSignupID", method = RequestMethod.POST)
+	public @ResponseBody int AjaxID(@RequestParam("m_id") String m_id) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("m_id", m_id);
+		int idcheck = (memberService.selectByUserid(map) == null ? 0 : 1);
 		return idcheck;
 	}
 
@@ -158,5 +175,11 @@ public class MemberController {
 	public @ResponseBody void delete(@RequestParam(required=false) int _id) {
 		logger.info("Calendar delete : "+_id);
 		calendarService.delete(_id);
+	}
+	
+
+	@RequestMapping(value = "/faq")
+	public String faq() {
+		return "faq";
 	}
 }

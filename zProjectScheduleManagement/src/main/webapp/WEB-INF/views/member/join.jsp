@@ -44,6 +44,21 @@
 			return false;
 		}
 
+		if(data.trim().length<4){
+			alert('아이디를 4자리 이상 입력해주세요');
+			$("#m_id").focus();
+			return false;
+		}
+
+		
+		if($("#idCheck").css('color')=='rgb(255, 0, 0)'){
+			$("#m_id").val("");
+			$("#idCheck").html("");
+			$("#m_id").focus();
+			alert('사용 불가능한 아이디입니다.');
+			return false;
+		}		
+		
 		var data = $("#m_pwd").val();
 		if(!data || data.trim().length==0){
 			alert('비밀번호는 반드시 입력해야 합니다.');
@@ -158,6 +173,29 @@
 			$('#emailCheck').html('');
 		}
 	}
+
+	function idCheck(){
+		var value= $('#m_id').val();
+		if(value.length>3){
+			 $.ajax({
+			     type:"POST",
+			     url:"${pageContext.request.contextPath }/m/checkSignupID",
+			     data:{
+			        "m_id":value
+			     },
+ 				 dataType:'json',
+			     success:function(data){
+			            if(data==1){
+			               $('#idCheck').css('color','red').html("사용 불가능한 아이디입니다.");
+			           	}else{
+			           		$('#idCheck').css('color','green').html("사용가능한 아이디입니다.");
+			            }
+			         }
+			    }); 
+		}else{
+			$('#idCheck').html('');
+		}
+	}
 	</script>
 </head>
 
@@ -169,7 +207,8 @@
                     <h2 class="title" style="color: #007BFF">회원가입</h2>
                     <form method="POST" action="${pageContext.request.contextPath }/m/joinOk" onsubmit="return formCheck();">
                         <div class="input-group">
-                            <input class="input--style-2" type="text" placeholder="사용자ID" name="m_id" id="m_id" >
+                            <input class="input--style-2" type="text" placeholder="사용자ID" name="m_id" id="m_id" onkeyup="idCheck();">
+                            <span id="idCheck"></span>
                         </div>                
                         <div class="row row-space">
                             <div class="col-2">

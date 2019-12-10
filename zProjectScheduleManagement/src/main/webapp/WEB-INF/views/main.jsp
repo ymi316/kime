@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Schedule</title>
+    <title>Memory Planner</title> 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700,900&display=swap" rel="stylesheet">
@@ -40,14 +40,15 @@
       <div class="container">
         <div class="row align-items-center">          
           <div class="col-6 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="mb-0">Schedule</a></h1>
-          </div>
+            <h1 class="mb-0 site-logo"><a href="\" class="mb-0">Memory</a></h1>
+          </div> 
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li> <a href="#about-section" class="nav-link">About Us</a></li>
+                <li> <a href="${pageContext.request.contextPath }/faq" class="nav-link">FAQ</a></li>
               <!--  <li class="has-children">
                   <a href="#about-section" class="nav-link">About Us</a>
                   <ul class="dropdown">
@@ -81,7 +82,7 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-8 mt-lg-5 text-center">
-            <h1 class="text-uppercase mb-5" data-aos="fade-up">My Schedule Program</h1>            
+            <h1 class="text-uppercase mb-5" data-aos="fade-up">My Memory Planner</h1>            
             <div data-aos="fade-up" data-aos-delay="100">
             
               <c:if test="${empty sessionScope.vo }">

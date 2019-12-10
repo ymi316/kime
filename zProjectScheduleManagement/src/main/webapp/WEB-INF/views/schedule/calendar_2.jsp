@@ -9,7 +9,7 @@
 	</c:if>     
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FullCalendar Example</title>
+    <title>Memory Planner</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/css/bootstrap.min.css">
