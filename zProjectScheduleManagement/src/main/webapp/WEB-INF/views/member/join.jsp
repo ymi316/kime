@@ -135,7 +135,7 @@
 	}
 	function emailCheck(){
 		var value= $('#m_email').val();
-		if(!validateEmail(value)){
+		if(value.length>5 && !validateEmail(value)){
 			 $('#emailCheck').css('color','red').html("이메일 형식으로 입력해주세요.");
 		}
 		else if(value.length>5){
@@ -162,7 +162,7 @@
 </head>
 
 <body>
-    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_1.jpg);" >
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg);" >
         <div class="wrapper wrapper--w960">
             <div class="card card-2">
                 <div class="card-body">
@@ -215,8 +215,8 @@
                         </div>
                         
                         <div class="p-t-30" >
-                            <button class="btn btn--radius btn--blue" type="button" onclick="location.href=''">돌아가기</button>
-                            <button class="btn btn--radius btn--blue" type="submit">회원가입</button>
+                            <button class="btn btn--radius btn--blue" type="button" onclick="location.href='/project/'">돌아가기</button>
+                            <button class="btn btn--radius btn--blue" type="submit">가입하기</button>
                         </div>
                     </form>
                 </div>

@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Oneder &mdash; Website Template by Colorlib</title>
+    <title>Schedule</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700,900&display=swap" rel="stylesheet">
@@ -40,14 +40,15 @@
       <div class="container">
         <div class="row align-items-center">          
           <div class="col-6 col-xl-2">
-            <h1 class="mb-0 site-logo"><a href="index.html" class="mb-0">Oneder</a></h1>
+            <h1 class="mb-0 site-logo"><a href="index.html" class="mb-0">Schedule</a></h1>
           </div>
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
-                <li class="has-children">
+                <li> <a href="#about-section" class="nav-link">About Us</a></li>
+              <!--  <li class="has-children">
                   <a href="#about-section" class="nav-link">About Us</a>
                   <ul class="dropdown">
                     <li><a href="#team-section" class="nav-link">Team</a></li>
@@ -67,7 +68,7 @@
                 <li><a href="#services-section" class="nav-link">Services</a></li>
                 <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
                 <li><a href="#blog-section" class="nav-link">Blog</a></li>
-                <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                <li><a href="#contact-section" class="nav-link">Contact</a></li> -->
               </ul>
             </nav>
           </div>
@@ -80,7 +81,7 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-8 mt-lg-5 text-center">
-            <h1 class="text-uppercase mb-5" data-aos="fade-up">I'm Creative One Page Template by Colorlib</h1>            
+            <h1 class="text-uppercase mb-5" data-aos="fade-up">My Schedule Program</h1>            
             <div data-aos="fade-up" data-aos-delay="100">
             
               <c:if test="${empty sessionScope.vo }">
@@ -88,6 +89,10 @@
 	              <a href="${pageContext.request.contextPath }/m/join" class="btn smoothscroll btn-primary mr-2 mb-2">join</a>
               </c:if>              
               
+              <c:if test="${not empty sessionScope.vo }">
+	              <a href="${pageContext.request.contextPath }/cal" class="btn smoothscroll btn-primary mr-2 mb-2">내 일정 보기</a>
+	              <a href="${pageContext.request.contextPath }/m/logout" class="btn smoothscroll btn-primary mr-2 mb-2">LogOut</a>
+              </c:if>         
             </div>
           </div>
         </div>
@@ -103,7 +108,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-12 text-center" data-aos="fade">
-            <h2 class="section-title mb-3">About Oneder</h2>
+            <h2 class="section-title mb-3">About us</h2>
           </div>
         </div>
         <div class="row">
@@ -114,15 +119,14 @@
           </div>
           <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-4">
-              <h3 class="h3 mb-4 text-black">For the next great business</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo tempora cumque eligendi in nostrum labore omnis quaerat.</p>
+              <h3 class="h3 mb-4 text-black">Schedule Management Program</h3>
+              <p>Schedule Management Program by LeeYM</p>
             </div>
              <div class="mb-4">
               <ul class="list-unstyled ul-check success">
-                <li>Officia quaerat eaque neque</li>
-                <li>Possimus aut consequuntur incidunt</li>
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipisicing elit</li>
+                <li>회원 가입 및 로그인</li>
+                <li>일정 입력하기</li>
+                <li>일정 수정하기</li>
               </ul>
             </div>
             <p><a href="#contact-section" class="smoothscroll btn btn-primary">Get In Touch</a></p>
@@ -132,49 +136,13 @@
     </div>
     <footer class="site-footer">
       <div class="container">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="row">
-              <div class="col-md-5">
-                <h2 class="footer-heading mb-4">About Us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
-              </div>
-              <div class="col-md-3 ml-auto">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#about-section" class="smoothscroll">About Us</a></li>
-                  <li><a href="#services-section" class="smoothscroll">Services</a></li>
-                  <li><a href="#testimonials-section" class="smoothscroll">Testimonials</a></li>
-                  <li><a href="#contact-section" class="smoothscroll">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <h2 class="footer-heading mb-4">Follow Us</h2>
-                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
-            <form action="#" method="post" class="footer-subscribe">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-primary text-black" type="button" id="button-addon2">Send</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <div class="border-top pt-5">
               <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <i class="icon-heart text-danger" aria-hidden="true"></i>
+            Copyright &copy;LeeYM <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
         

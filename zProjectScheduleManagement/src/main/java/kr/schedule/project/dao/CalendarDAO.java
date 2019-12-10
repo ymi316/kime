@@ -11,7 +11,9 @@ public interface CalendarDAO {
 	// 수정
 	void update(CalendarVO vo); 
 	// 삭제
-	void delete(HashMap<String,String> map);
+	void delete(int _id);
 	// 삽입
 	void insert(CalendarVO vo);
+	// count
+	int selectCount(HashMap<String,String> map); 
 }

@@ -24,114 +24,139 @@ import kr.schedule.project.vo.CalendarVO;
 import kr.schedule.project.vo.MemberVO;
 
 @Controller
-public class MemberController {	
+public class MemberController {
 	@Autowired
 	MemberService memberService;
 	@Autowired
-	CalendarService calendarService;	
+	CalendarService calendarService;
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-	
-	@RequestMapping(value="/m")
-	public String login(HttpServletRequest request, Model model) {//쿠키를 읽자
+
+	@RequestMapping(value = "/m")
+	public String login(HttpServletRequest request, Model model) {// 쿠키를 읽자
 		Cookie[] cookies = request.getCookies();
-		
-		if(cookies!=null&& cookies.length>0) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("m_id")) {
-					model.addAttribute("m_id",cookie.getValue());
+
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("m_id")) {
+					model.addAttribute("m_id", cookie.getValue());
 					break;
 				}
 			}
 		}
 		return "member/login";
 	}
-	@RequestMapping(value="/m/loginOk" , method=RequestMethod.GET)
+
+	@RequestMapping(value = "/m/loginOk", method = RequestMethod.GET)
 	public String loginOkGet() {
 		return "redirect:/member/login";
-	}		
-	@RequestMapping(value="/m/loginOk" , method=RequestMethod.POST)
-	public String loginOkPost(@ModelAttribute MemberVO memberVO,@RequestParam(required=false) String remember, HttpServletRequest request, HttpServletResponse response) {
-		//서비스를 호출해서 로그인 확인
+	}
+
+	@RequestMapping(value = "/m/loginOk", method = RequestMethod.POST)
+	public String loginOkPost(@ModelAttribute MemberVO memberVO, @RequestParam(required = false) String remember,
+			HttpServletRequest request, HttpServletResponse response) {
+		// 서비스를 호출해서 로그인 확인
 		MemberVO vo = memberService.loginOk(memberVO);
-		if(vo==null)		
+		if (vo == null)
 			return "redirect:/m";
 		else {
 			request.getSession().setAttribute("vo", vo); // 세션에 저장
-			if(remember!=null&& remember.equals("save")) {
-				Cookie cookie = new Cookie("m_id",vo.getM_id());
-				cookie.setMaxAge(60*60*24*7);
+			if (remember != null && remember.equals("save")) {
+				Cookie cookie = new Cookie("m_id", vo.getM_id());
+				cookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(cookie);
-			}else {
-				//쿠키 삭제
-				Cookie cookie = new Cookie("m_id","");
+			} else {
+				// 쿠키 삭제
+				Cookie cookie = new Cookie("m_id", "");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
 			return "redirect:/";
-		}		
+		}
 	}
 
-	@RequestMapping(value="/m/join")
+	@RequestMapping(value = "/m/join")
 	public String join() {
 		return "member/join";
-	}	
-	
-	@RequestMapping(value="/m/joinOk" , method=RequestMethod.GET)
+	}
+
+	@RequestMapping(value = "/m/joinOk", method = RequestMethod.GET)
 	public String joinOkGet() {
 		return "redirect:/m";
-	}		
-	@RequestMapping(value="/m/joinOk" , method=RequestMethod.POST)
+	}
+
+	@RequestMapping(value = "/m/joinOk", method = RequestMethod.POST)
 	public String joinOkPost(@ModelAttribute MemberVO vo) {
 		memberService.insert(vo);
 		return "redirect:/m";
-	}	
-	
+	}
+
 	// 이메일 중복 체크
 	@RequestMapping(value = "/m/checkSignupEmail", method = RequestMethod.POST)
-	public @ResponseBody int AjaxView( @RequestParam("m_email") String m_email){
+	public @ResponseBody int AjaxView(@RequestParam("m_email") String m_email) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("m_email", m_email);
-		int idcheck = (memberService.selectByEmail(map)==null?0:1);
+		int idcheck = (memberService.selectByEmail(map) == null ? 0 : 1);
 		return idcheck;
 	}
-	@RequestMapping(value="/cal" )
-	public String calendar(Model model ) {
-		return "schedule/calendar_2"; 
-	}	
-	//일단 Json파일을 읽는것부터 해보자
-	@RequestMapping(value="/readJson")
+
+	@RequestMapping(value = "/cal")
+	public String calendar(Model model) {
+		return "schedule/calendar_2";
+	}
+
+	// 일단 Json파일을 읽는것부터 해보자
+	@RequestMapping(value = "/readJson")
 	public String readJson(HttpServletRequest request, Model model) {
 		String filepath = request.getRealPath("resources/json/data.json");
 		List<CalendarVO> list = calendarService.readJson(filepath);
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		return "view";
-	}	
+	}
+
 	// 데이터를 json파일로 저장하는 방법
 	@SuppressWarnings("deprecation")
-	@RequestMapping(value="/saveJson")
-	public String saveJson(@ModelAttribute CalendarVO vo ,HttpServletRequest request, Model model) {	
-		calendarService.saveJSON(request.getRealPath("resources/json/data.json"),"1234");
+	@RequestMapping(value = "/saveJson")
+	public String saveJson(@ModelAttribute CalendarVO vo, HttpServletRequest request, Model model) {
+		calendarService.saveJSON(request.getRealPath("resources/json/data.json"), "1234");
 		return "schedule/calendar_2";
-	}	
-	// 이걸로 사용할거야 json파일 삭제해도 되나?
+	}
+
 	// responsebody로 디비에 있는 데이터 json파일로 파싱할 수 있도록 함
-	@RequestMapping(value="/saveJson2")
+	@RequestMapping(value = "/saveJson2")
 	@ResponseBody
-	public List<CalendarVO> responseBodyTest(@ModelAttribute CalendarVO vo, HttpServletRequest request){
-		//List<CalendarVO> result = calendarService.selectByUserid(vo.getUsername());
-		List<CalendarVO> result = calendarService.selectByUserid("1234");	   
-		logger.info("saveJson2 : "+result.toString());
-	    return result;
-	}		
+	public List<CalendarVO> responseBodyTest(HttpServletRequest request) {
+		// List<CalendarVO> result = calendarService.selectByUserid(vo.getUsername());
+		MemberVO memberVO = (MemberVO)request.getSession().getAttribute("vo");
+		logger.info("memberVO saveJson2 log : " + memberVO);
+		List<CalendarVO> result = calendarService.selectByUserid(memberVO.getM_id());
+		logger.info("memberVO saveJson2 result : " + result);
+		return result;
+	}
+
+	@RequestMapping(value = "/cal/insert", method = RequestMethod.POST)
+	public @ResponseBody boolean insert(@ModelAttribute CalendarVO vo, HttpServletRequest request) {
+		logger.info("Calendar insert : "+vo);
+		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("vo");
+		vo.setUsername(memberVO.getM_id());
+		logger.info("CalendarVO : " + vo);
+		calendarService.insert(vo);
+		return true;
+	}
+
 	@RequestMapping(value = "/cal/update", method = RequestMethod.POST)
-	public @ResponseBody void update( @ModelAttribute CalendarVO vo, HttpServletRequest request){
+	public @ResponseBody void update(@ModelAttribute CalendarVO vo,@RequestParam(required=false) int _id, HttpServletRequest request) {
+		logger.info("Calendar update : id : "+vo.get_id()+","+_id+", "+vo);
+		MemberVO memberVO = (MemberVO) request.getSession().getAttribute("vo");
+		vo.setUsername(memberVO.getM_id());
+		vo.set_id(_id);
+		logger.info("CalendarVO : " + vo); 
 		calendarService.update(vo);
 	}
+
 	@RequestMapping(value = "/cal/delete", method = RequestMethod.POST)
-	public @ResponseBody void delete( @ModelAttribute CalendarVO vo, HttpServletRequest request){
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userid", vo.getUsername());
-		calendarService.delete(map);
+	public @ResponseBody void delete(@RequestParam(required=false) int _id) {
+		logger.info("Calendar delete : "+_id);
+		calendarService.delete(_id);
 	}
 }

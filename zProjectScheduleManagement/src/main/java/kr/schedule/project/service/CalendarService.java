@@ -67,23 +67,30 @@ public class CalendarService {
 			pw.close(); // 꼭 닫아주기
 		}
 	}
-	
+
 	public List<CalendarVO> selectByUserid(String userid) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userid", userid);
-		List<CalendarVO> list = calendarDAO.selectByUserid(map);
+		List<CalendarVO> list = null;
+		if(calendarDAO.selectCount(map)>0) {
+			list = calendarDAO.selectByUserid(map);
+		}				
 		return list;
 	}
 
 	public void update(CalendarVO vo) {
+		if(vo.isAllDay()) vo.setDayNumber(1);
+		else vo.setDayNumber(0);
 		calendarDAO.update(vo);
 	}
 	// 삭제
-	public void delete(HashMap<String,String> map) {
-		calendarDAO.delete(map);
+	public void delete(int _id) {
+		calendarDAO.delete(_id);
 	}
-	// 삭제
+	// 삽입
 	public void insert(CalendarVO vo) {
+		if(vo.isAllDay()) vo.setDayNumber(1);
+		else vo.setDayNumber(0);
 		calendarDAO.insert(vo);
 	}
 }

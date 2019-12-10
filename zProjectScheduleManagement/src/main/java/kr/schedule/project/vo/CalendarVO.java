@@ -20,5 +20,6 @@ public class CalendarVO implements Serializable{
 	private String username;
 	private String backgroundColor; 
 	private String textColor;
-	private boolean allDay;
+	private boolean allDay;	
+	private int dayNumber;	
 }

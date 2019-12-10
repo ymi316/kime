@@ -3,7 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.schedule.project.dao.CalendarDAO">	
 	<select id="selectByUserid" parameterType="java.util.HashMap" resultType="CalendarVO">
-		select * from schedule where username=#{userid }
+		SELECT * FROM SCHEDULE WHERE username=#{userid }		
+	</select>
+	<select id="selectCount" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from schedule where username=#{userid }
 	</select>
 	<update id="update" parameterType="CalendarVO">
 		update schedule set 
@@ -12,14 +15,14 @@
 		,"end" = #{end} ,"type" = #{type} 
 		,backgroundColor = #{backgroundColor},textColor = #{textColor}
 		,allDay = #{allDay}
-		where username=#{username }
+		where username=#{username } and "_id"=#{_id}
 	</update>
-	<delete id="delete" parameterType="java.util.HashMap">
-		delete from schedule where username=#{userid }
+	<delete id="delete" parameterType="int">
+		delete from schedule where "_id"=#{_id}
 	</delete>
 	<insert id="insert" parameterType="java.util.HashMap">
 		INSERT INTO schedule VALUES (schedule_SEQ.nextval,#{title}, #{description},#{start},#{end}
-		, #{type}, #{username }, #{backgroundColor}, #{textColor}, #{allDay});
+		, #{type}, #{username }, #{backgroundColor}, #{textColor}, #{dayNumber})
 	</insert>
 	
 </mapper>  

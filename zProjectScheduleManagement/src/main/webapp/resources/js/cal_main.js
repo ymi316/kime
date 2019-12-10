@@ -12,7 +12,7 @@ function getDisplayEventDate(event) {
   } else {
     displayEventDate = "하루종일";
   }
-
+ 
   return displayEventDate;
 }
 /*
@@ -39,20 +39,17 @@ function filtering(event) {
 }
 */
 function calDateWhenResize(event) {
-
   var newDates = {
     startDate: '',
     endDate: ''
   };
-
   if (event.allDay) {
-    newDates.startDate = moment(event.start._d).format('YYYY/MM/DD');
-    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY/MM/DD');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
   } else {
-    newDates.startDate = moment(event.start._d).format('YYYY/MM/DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY/MM/DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
   }
-
   return newDates;
 }
 
@@ -65,20 +62,20 @@ function calDateWhenDragnDrop(event) {
 
   //하루짜리 all day
   if (event.allDay && event.end === null) {
-    newDates.startDate = moment(event.start._d).format('YYYY/MM/DD');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
     newDates.endDate = newDates.startDate;
   }
 
   //2일이상 all day
   else if (event.allDay && event.end !== null) {
-    newDates.startDate = moment(event.start._d).format('YYYY/MM/DD');
-    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY/MM/DD');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
   }
 
   //all day가 아님
   else if (!event.allDay) {
-    newDates.startDate = moment(event.start._d).format('YYYY/MM/DD HH:mm');
-    newDates.endDate = moment(event.end._d).format('YYYY/MM/DD HH:mm');
+    newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
   }
 
   return newDates;
@@ -267,17 +264,17 @@ var calendar = $('#calendar').fullCalendar({
         hours: today.hours(),
         minute: today.minutes()
       });
-      startDate = moment(startDate).format('YYYY/MM/DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
       endDate = moment(endDate).subtract(1, 'days');
 
       endDate.set({
         hours: today.hours() + 1,
         minute: today.minutes()
       });
-      endDate = moment(endDate).format('YYYY/MM/DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
     } else {
-      startDate = moment(startDate).format('YYYY/MM/DD HH:mm');
-      endDate = moment(endDate).format('YYYY/MM/DD HH:mm');
+      startDate = moment(startDate).format('YYYY-MM-DD HH:mm');
+      endDate = moment(endDate).format('YYYY-MM-DD HH:mm');
     }
     /*
     //날짜 클릭시 카테고리 선택메뉴
@@ -325,7 +322,7 @@ var calendar = $('#calendar').fullCalendar({
   },
   eventLimitClick: 'week', //popover
   navLinks: true,
-  defaultDate: moment('2019-05'), //실제 사용시 삭제
+  defaultDate: moment(new Date), //실제 사용시 삭제
   timeFormat: 'HH:mm',
   defaultTimedEventDuration: '01:00:00',
   editable: true,

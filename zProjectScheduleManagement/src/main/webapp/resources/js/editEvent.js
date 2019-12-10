@@ -73,35 +73,43 @@ var editEvent = function (event, element, view) {
         event.type = editType.val();
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
-
+        
         $("#calendar").fullCalendar('updateEvent', event);
-
+        var eventData = {
+                _id : event._id,
+                title: event.title,
+                start: event.start,
+                end: event.end,
+                description: event.description,
+                type: event.type,
+                username: '',
+                backgroundColor: event.backgroundColor,
+                textColor: '#ffffff',
+                allDay: event.allDay
+           };
         //일정 업데이트
         $.ajax({
             type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            method :"POST",
+            url: "cal/update",
+            data: eventData,
             success: function (response) {
                 alert('수정되었습니다.')
             }
         });
     });
-
     // 삭제버튼
     $('#deleteEvent').on('click', function () {
         $('#deleteEvent').unbind();
-        $("#calendar").fullCalendar('removeEvents', [event._id]);
+        $("#calendar").fullCalendar('removeEvents', [event._id]);        
         eventModal.modal('hide');
-
+        var _id = event._id;
         //삭제시
         $.ajax({
             type: "get",
+            method :"POST",
             url: "cal/delete",
-            data: {
-                
-            },
+            data: {_id},
             success: function (response) {
                 alert('삭제되었습니다.');
             }

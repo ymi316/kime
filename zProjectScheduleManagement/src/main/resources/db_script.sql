@@ -68,11 +68,26 @@ INCREMENT BY 1;
 SELECT * FROM schedule;
 DELETE FROM schedule;
 
-INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-07T09:30', '2019-05-07T15:00', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
-INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-01T12:30', '2019-05-01T15:30', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
-INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-12', '2019-05-12', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
-INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-05-15', '2019-05-15', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-12-07T09:30', '2019-12-07T15:00', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-12-01T12:30', '2019-12-01T15:30', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-12-12', '2019-12-12', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'title 01', 'description 01', '2019-12-15', '2019-12-15', 'type 01', 'username 01', 'backgroundColor 01', 'textColor 01', 01);
 
 UPDATE schedule SET username='1234';
 select * from schedule where username='1234';
 COMMIT;
+
+INSERT INTO schedule VALUES (schedule_SEQ.nextval,'sdf', 'sdf','2019-12-17 16:45','2019-12-17 17:45'
+		, '할일', '1234', '#D25565', '#ffffff', 0); 
+	
+SELECT _id,TITLE,DESCRIPTION,"start","end","type",USERNAME,BACKGROUNDCOLOR,TEXTCOLOR
+FROM schedule,(SELECT "_id",DECODE(ALLDAY,1,'true',0,'false') ALLDAY2 FROM schedule) table2 WHERE table2."_id" = SCHEDULE."_id" and
+username='1234';
+
+SELECT "_id",DECODE(ALLDAY,1,'true',0,'false') ALLDAY FROM schedule;
+
+SELECT "_id",DECODE(ALLDAY,1,'true',0,'false') ALLDAY,BACKGROUNDCOLOR,DESCRIPTION,"end","start",TEXTCOLOR,TITLE,"type",USERNAME
+FROM schedule WHERE USERNAME='1234';
+
+SELECT * FROM SCHEDULE;
+SELECT "_id", TITLE,DESCRIPTION,"start","end","type",USERNAME,BACKGROUNDCOLOR,TEXTCOLOR,DECODE(ALLDAY,1,'true',0,'false') ALLDAY FROM SCHEDULE WHERE USERNAME='1234';
