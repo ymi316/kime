@@ -65,6 +65,32 @@ CREATE TABLE schedule(
 CREATE SEQUENCE schedule_SEQ
 START WITH 1
 INCREMENT BY 1;
+
+CREATE TABLE faq
+(
+    idx        INT              NOT NULL, 
+    title      VARCHAR2(50)     NULL, 
+    content    VARCHAR2(200)    NULL, 
+    id         VARCHAR2(50)     NULL, 
+    regdate    TIMESTAMP        NULL, 
+    CONSTRAINT FAQ_PK PRIMARY KEY (idx)
+);
+
+CREATE SEQUENCE faq_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO faq values(faq_SEQ.nextval,'title','content','1234',SYSDATE);
+
+UPDATE FAQ SET TITLE ='updateTitle', CONTENT ='updateContent', REGDATE=SYSDATE WHERE IDX='1';
+
+DELETE FROM faq WHERE idx='1';
+
+SELECT * FROM faq;
+SELECT * FROM faq WHERE idx='1';
+
+COMMIT;
+
 SELECT * FROM schedule;
 DELETE FROM schedule;
 

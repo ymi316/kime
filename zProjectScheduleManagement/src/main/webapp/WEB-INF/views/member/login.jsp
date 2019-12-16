@@ -109,12 +109,12 @@
 					</div>
 					<div class="flex-sb-m w-full p-t-3 p-b-24">					
 						<div>
-							<a href="${pageContext.request.contextPath }/member/idSearch"  class="txt1">
+							<a href="${pageContext.request.contextPath }/m/idSearch"  class="txt1">
 								아이디 찾기 &nbsp;
 							</a>
 						</div>
 						<div>
-							<a href="${pageContext.request.contextPath }/member/pwSearch" class="txt1">
+							<a href="${pageContext.request.contextPath }/m/pwSearch" class="txt1">
 								비밀번호 찾기
 							</a>
 						</div>

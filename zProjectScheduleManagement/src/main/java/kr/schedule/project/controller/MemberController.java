@@ -116,6 +116,48 @@ public class MemberController {
 		int idcheck = (memberService.selectByUserid(map) == null ? 0 : 1);
 		return idcheck;
 	}
+	
+
+	@RequestMapping(value="/m/idSearch")	
+	public String idSearch() {
+		return "member/idSearch";
+	}
+	@RequestMapping(value="/m/idSearchOk" , method=RequestMethod.GET)	
+	public String idSearchOkGet() {
+		return "redirect:/m";
+	}	
+	@RequestMapping(value="/m/idSearchOk" , method=RequestMethod.POST)	
+	public String idSearchOkPost(@ModelAttribute MemberVO memberVO ,Model model) {
+		MemberVO vo = memberService.idSearch(memberVO);
+		
+		if(vo==null)		
+			return "redirect:/m";
+		else{
+			model.addAttribute("vo", vo);
+			return "member/viewUserId";
+		}
+	}	
+	@RequestMapping(value="/m/pwSearch")	
+	public String pwSearch() {
+		return "member/passwordSearch";
+	}
+	@RequestMapping(value="/m/pwSearchOk" , method=RequestMethod.GET)	
+	public String pwSearchOkGet() {
+		return "redirect:/m/login";
+	}	
+
+	@RequestMapping(value="/m/pwSearchOk" , method=RequestMethod.POST)	
+	public String pwSearchOkPost(@ModelAttribute MemberVO membervo ,Model model) {
+		MemberVO vo = memberService.pwSearch(membervo);
+		logger.info("pwSearchOkPost "+vo);
+		//MemberVO vo = membervo;
+		if(vo==null)		
+			return "redirect:/m/login";
+		else{
+			model.addAttribute("vo", vo);
+			return "member/viewUserPw";
+		}
+	}	
 
 	@RequestMapping(value = "/cal")
 	public String calendar(Model model) {
@@ -175,11 +217,5 @@ public class MemberController {
 	public @ResponseBody void delete(@RequestParam(required=false) int _id) {
 		logger.info("Calendar delete : "+_id);
 		calendarService.delete(_id);
-	}
-	
-
-	@RequestMapping(value = "/faq")
-	public String faq() {
-		return "faq";
 	}
 }
