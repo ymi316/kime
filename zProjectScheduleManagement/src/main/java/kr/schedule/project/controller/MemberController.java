@@ -44,6 +44,13 @@ public class MemberController {
 				}
 			}
 		}
+		String referer = request.getHeader("referer");
+		try {
+			referer = referer.replace("http://localhost:8080/project/", "");
+//			referer = referer.substring(referer.lastIndexOf('/'));
+		}catch(Exception e) {};
+		request.getSession().setAttribute("referer", referer);
+		logger.info("login referer : "+referer);
 		return "member/login";
 	}
 
@@ -57,9 +64,9 @@ public class MemberController {
 			HttpServletRequest request, HttpServletResponse response) {
 		// 서비스를 호출해서 로그인 확인
 		MemberVO vo = memberService.loginOk(memberVO);
-		if (vo == null)
+		if (vo == null) {
 			return "redirect:/m";
-		else {
+		}else {
 			request.getSession().setAttribute("vo", vo); // 세션에 저장
 			if (remember != null && remember.equals("save")) {
 				Cookie cookie = new Cookie("m_id", vo.getM_id());
@@ -72,6 +79,8 @@ public class MemberController {
 				response.addCookie(cookie);
 			}
 			return "redirect:/";
+			//if(request.getSession().getAttribute("referer")==null) return "redirect:/";
+			//return "redirect:/"+request.getSession().getAttribute("referer");
 		}
 	}
 
@@ -129,7 +138,7 @@ public class MemberController {
 	@RequestMapping(value="/m/idSearchOk" , method=RequestMethod.POST)	
 	public String idSearchOkPost(@ModelAttribute MemberVO memberVO ,Model model) {
 		MemberVO vo = memberService.idSearch(memberVO);
-		
+		logger.info("idSearchOkPost vo : "+vo);
 		if(vo==null)		
 			return "redirect:/m";
 		else{
@@ -143,7 +152,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="/m/pwSearchOk" , method=RequestMethod.GET)	
 	public String pwSearchOkGet() {
-		return "redirect:/m/login";
+		return "redirect:/m";
 	}	
 
 	@RequestMapping(value="/m/pwSearchOk" , method=RequestMethod.POST)	
@@ -152,7 +161,7 @@ public class MemberController {
 		logger.info("pwSearchOkPost "+vo);
 		//MemberVO vo = membervo;
 		if(vo==null)		
-			return "redirect:/m/login";
+			return "redirect:/m";
 		else{
 			model.addAttribute("vo", vo);
 			return "member/viewUserPw";
@@ -160,7 +169,8 @@ public class MemberController {
 	}	
 
 	@RequestMapping(value = "/cal")
-	public String calendar(Model model) {
+	public String calendar(Model model, HttpServletRequest request) {
+		if(request.getSession().getAttribute("vo")==null) return "redirect:/m";
 		return "schedule/calendar_2";
 	}
 

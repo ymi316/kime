@@ -81,6 +81,12 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+		<!-- AOP dependency -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2</version>
+		</dependency>
 		<!-- 파일업로드 관련 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -120,13 +126,6 @@
 			<groupId>org.sitemesh</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>3.0.1</version>
-		</dependency>
-		<!-- ajax -->
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.4</version>
-			<classifier>jdk15</classifier>
 		</dependency>
 
 		<dependency>
@@ -253,7 +252,7 @@
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
-            </plugin>
+            </plugin> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -266,7 +265,7 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
-            <plugin>
+            <plugin> 
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>

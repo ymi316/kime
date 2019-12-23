@@ -83,7 +83,7 @@
 					</span>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-						<input class="input100" type="text" name="m_id" id="m_id" value="${m_id }" placeholder="Email address">
+						<input class="input100" type="text" name="m_id" id="m_id" value="${m_id }" placeholder="User ID">
 						<span class="focus-input100"></span>
 					</div>					
 					

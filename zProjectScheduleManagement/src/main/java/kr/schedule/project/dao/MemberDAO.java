@@ -22,5 +22,9 @@ public interface MemberDAO {
 	MemberVO selectByUserid(HashMap<String,String> map);
 	// 7. 1개 읽기(user_email로 얻기) : 로그인, 비밀번호 찾기(이메일로 보내기)	
 	MemberVO selectByEmail(HashMap<String,String> map);
+	
+	MemberVO selectByUserName(HashMap<String,String> map);
+	
+	void updatePassword(HashMap<String,String> map);
 }
  

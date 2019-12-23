@@ -136,7 +136,7 @@
 			return false;
 		}
 		
-		
+		alert($("#m_name").val()+'님 환영합니다.\n가입이 완료되었습니다.');
 		return true;
 	}
 	
@@ -200,7 +200,7 @@
 </head>
 
 <body>
-    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg);" >
+    <div class="page-wrapper p-t-180 p-b-100 font-robo" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg);" >
         <div class="wrapper wrapper--w960">
             <div class="card card-2">
                 <div class="card-body">

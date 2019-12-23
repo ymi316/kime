@@ -31,5 +31,13 @@
 	</select>
 	<select id="selectByEmail" parameterType="java.util.HashMap" resultType="MemberVO">
 		select * from schedule_member where m_email=#{m_email }
+	</select>	
+	<select id="selectByUserName" parameterType="java.util.HashMap" resultType="MemberVO">
+		select * from schedule_member where m_name=#{m_name } and m_phone = #{m_phone}
 	</select>
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		update schedule_member set 
+		m_pwd = #{m_pwd}
+		where m_id=#{m_id }
+	</update>	
 </mapper> 

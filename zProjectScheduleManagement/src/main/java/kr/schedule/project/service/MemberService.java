@@ -128,20 +128,18 @@ public class MemberService {
 	}
 	
 	public MemberVO idSearch(MemberVO memberVO) {
-		MemberVO vo = null;
 		HashMap<String, String> map = new HashMap<String, String>();
-//		map.put("username", memberVO.getUsername());
-//		map.put("phone", memberVO.getPhone());
-//		vo = memberDao.selectByUserName(map);
-		return vo;
+		map.put("m_name", memberVO.getM_name());
+		map.put("m_phone", memberVO.getM_phone());
+		return memberDao.selectByUserName(map);
 	}
 	
 	public MemberVO pwSearch(MemberVO memberVO) {
 		logger.info(memberVO);
 		MemberVO vo = null;
 		HashMap<String, String> map = new HashMap<String, String>();
-//		map.put("userid", memberVO.getUserid());
-		vo = memberDao.selectByUserid(map);
+		map.put("m_id", memberVO.getM_id());
+		vo = memberDao.selectByUserid(map); 
 		logger.info(vo);
 		if(!(vo!=null && vo.getM_name().equals(memberVO.getM_name()) && vo.getM_phone().equals(memberVO.getM_phone()))) {
 			vo=null;
@@ -157,15 +155,15 @@ public class MemberService {
 			}
 			final String password = sb.toString();
 			// 2. 임시 비번으로 DB를 업데이트 하고
-			map.put("password", password);
-//			memberDao.updatePassword(map);
+			map.put("m_pwd", password);
+			memberDao.updatePassword(map); 
 			// 3. 메일 발송		
 			final MemberVO vo2 = vo;
 	        MimeMessagePreparator preparator = new MimeMessagePreparator() {
 	        	public void prepare(MimeMessage mimeMessage) throws Exception {
 	                mimeMessage.setFrom("sungnam201908@gmail.com");
-	                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(vo2.getM_id()));
-	                mimeMessage.setText(vo2.getM_id()
+	                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(vo2.getM_email()));
+	                mimeMessage.setText(vo2.getM_email()
 	                        + "님, 반갑습니다.<br> " 
 	                		+ "아래 임시 비밀번호를 이용해 로그인 하세요<br>'"
 	                        + password+"'");
